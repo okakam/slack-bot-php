@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: mybluemix.net
+  name: okakam-chatbot-ul
+  host: okakam-chatbot-ul
+  disk_quota: 1024M
+  services:
+  - availability-monitoring-auto
+  buildpack: php_buildpack
