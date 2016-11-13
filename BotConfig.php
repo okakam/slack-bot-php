@@ -1,5 +1,5 @@
 <?php
 
 class BotConfig {
-    const TOKEN = 'xoxb-102671332017-Bc4UZOJeilExYH4GVFTZ7XHx';
+    const TOKEN = 'xoxb-102671332017-5g6N1UMx2jRsdwMpkk43qrXP';
 }

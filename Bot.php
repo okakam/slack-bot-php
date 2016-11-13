@@ -8,14 +8,12 @@ $loop = React\EventLoop\Factory::create();
 $client = new Slack\RealTimeClient($loop);
 $client->setToken(BotConfig::TOKEN);
 
-$client->getChannelById('C27J5H0UW')->then(function (\Slack\Channel $channel) use ($client) {
-    $client->send('おくるよ', $channel);
-});
-
-// disconnect after first message
 $client->on('message', function ($data) use ($client) {
     echo "Someone typed a message: ".$data['text']. " : " . $data['channel'] . "\n";
-//    $client->disconnect();
+
+    $client->getChannelById($data['channel'])->then(function ($chanel) use ($client) {
+        $client->send('TESTTEST', $chanel);
+    });
 });
 
 $client->connect()->then(function () {
