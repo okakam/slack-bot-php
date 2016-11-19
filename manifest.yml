@@ -9,3 +9,4 @@ applications:
   services:
   - availability-monitoring-auto
   buildpack: php_buildpack
+  command: php Bot.bpb

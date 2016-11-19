@@ -1,0 +1,8 @@
+<?php
+
+class BotConfig {
+    const SLACK_TOKEN = 'SLACK TOKEN';
+    const SLACK_BOT_HASH = 'BOT USER HASH';
+
+    const CHAT_TOKEN = 'CHAT BOT TOKEN';
+}
