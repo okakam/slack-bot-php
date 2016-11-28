@@ -9,19 +9,26 @@ $chat_api_url = 'https://chatbot-api.userlocal.jp/api/chat';
 $loop = React\EventLoop\Factory::create();
 
 $client = new Slack\RealTimeClient($loop);
-$client->setToken(BotConfig::SLACK_TOKEN);
+$client->setToken(BotConfig::SLACK_TOKEN_TEST);
 
 $client->on('message', function ($data) use ($client) {
     print_r("Someone typed a message: " . $data['text'] . " : " . $data['channel'] . "\n");
     $message = null;
     if (preg_match('/^(..' . BotConfig::SLACK_BOT_HASH . '.)(.*)/', $data['text'], $matches)) {
         $message = isset($matches[2]) ? $matches[2] : null;
+        $message = trim($message);
     }
-    if(empty($message)) {
+    if (empty($message)) {
         return;
     }
 
-    $client->getChannelById($data['channel'])->then(function ($chanel) use ($client, $message) {
+    $response = "";
+    // 天気と言われたら 東京の天気を返す
+    if (preg_match('/^天気/', $message)) {
+        $apiResponse = file_get_contents('https://rss-weather.yahoo.co.jp/rss/days/13.xml');
+        $weatherXmlObj = simplexml_load_string($apiResponse);
+        $response = '東京の天気 : ' . $weatherXmlObj->channel->item->description;
+    } else {
         global $chat_api_url;
         $query = [
             'key' => BotConfig::CHAT_TOKEN,
@@ -37,6 +44,13 @@ $client->on('message', function ($data) use ($client) {
         } else {
             $response = 'え？';
         }
+    }
+
+    if (empty($response)) {
+        return;
+    }
+
+    $client->getChannelById($data['channel'])->then(function ($chanel) use ($client, $response) {
         $client->send($response, $chanel);
     });
 });
