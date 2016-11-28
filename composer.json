@@ -2,6 +2,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
+    "php": "5.6.*",
     "coderstephen/slack-client": "^0.2.5"
   }
 }
