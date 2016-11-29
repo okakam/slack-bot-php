@@ -9,7 +9,7 @@ $chat_api_url = 'https://chatbot-api.userlocal.jp/api/chat';
 $loop = React\EventLoop\Factory::create();
 
 $client = new Slack\RealTimeClient($loop);
-$client->setToken(BotConfig::SLACK_TOKEN_TEST);
+$client->setToken(BotConfig::SLACK_TOKEN);
 
 $client->on('message', function ($data) use ($client) {
     print_r("Someone typed a message: " . $data['text'] . " : " . $data['channel'] . "\n");
