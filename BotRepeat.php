@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Tokyo');
 $loop = React\EventLoop\Factory::create();
 
 $client = new Slack\RealTimeClient($loop);
-$client->setToken(BotConfig::SLACK_TOKEN_TEST);
+$client->setToken(BotConfig::SLACK_TOKEN);
 
 $client->on('message', function ($data) use ($client) {
     print_r("Someone typed a message: " . $data['text'] . " : " . $data['channel'] . "\n");
